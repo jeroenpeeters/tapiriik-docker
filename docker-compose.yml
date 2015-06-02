@@ -1,0 +1,22 @@
+mongo:
+  image: 'mongo:3'
+  expose:
+    - '27017'
+rabbitmq:
+  image: 'rabbitmq:3'
+  environment:
+    - RABBITMQ_NODENAME=tapiriik
+  expose:
+    - '5672'
+redis:
+  image: 'redis:3'
+  expose:
+    - '6379'
+web:
+  image: 'jeroenpeeters/tapiriik-docker:latest'
+  links:
+    - mongo
+    - rabbitmq
+    - redis
+  ports:
+    - '8000:8000'
